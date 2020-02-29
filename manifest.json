@@ -1,0 +1,42 @@
+{
+  "name": "Confluence markdown editor chrome extension",
+  "description" : "Base Level Extension",
+  "version": "0.0.0",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_popup": "public/index.html",
+    "default_icon": "icons/hello_extensions.png"
+  },
+
+  "permissions": [
+    "tabs", "webNavigation", "history"
+  ],
+
+  "background": {
+    "scripts":["dist/background.js"]
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://CONFLUENCE_PAGE/*"],
+      "js": ["dist/index.js"],
+      "css": []
+    }
+  ],
+
+
+
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F",
+        "mac": "MacCtrl+Shift+F"
+      },
+      "description": "Opens hello.html"
+    }
+  },
+
+  "web_accessible_resources": [
+    "*"
+  ]
+}
