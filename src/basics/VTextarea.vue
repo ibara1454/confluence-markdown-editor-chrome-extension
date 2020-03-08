@@ -9,7 +9,7 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: 'Textarea',
+  name: 'VTextarea',
 
   props: {
     value: { type: String, required: false, default: '' },

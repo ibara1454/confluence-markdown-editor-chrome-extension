@@ -1,11 +1,9 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import expect from 'expect';
 import MarkdownEditor from '@/components/MarkdownEditor.vue';
-import Textarea from '@/basics/Textarea.vue';
 
 // Register v-textarea for testing
 const localVue = createLocalVue();
-localVue.component('v-textarea', Textarea);
 
 describe('MarkdownEditor', () => {
   it('has a input panel', () => {

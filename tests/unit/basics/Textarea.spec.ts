@@ -1,10 +1,10 @@
 import { shallowMount } from '@vue/test-utils';
 import expect from 'expect';
-import Textarea from '@/basics/Textarea.vue';
+import VTextarea from '@/basics/VTextarea.vue';
 
-describe('Textarea', () => {
+describe('VTextarea', () => {
   it('Rendered with given input', () => {
-    const wrapper = shallowMount(Textarea, {
+    const wrapper = shallowMount(VTextarea, {
       propsData: {
         value: '# Dummy text',
       },
@@ -14,7 +14,7 @@ describe('Textarea', () => {
   });
 
   it('Input event triggered on user input', () => {
-    const wrapper = shallowMount(Textarea);
+    const wrapper = shallowMount(VTextarea);
     wrapper.find('textarea').setValue('# Dummy text');
     const inputField = wrapper.find('textarea').element as HTMLInputElement;
     expect(inputField.value).toBe('# Dummy text');

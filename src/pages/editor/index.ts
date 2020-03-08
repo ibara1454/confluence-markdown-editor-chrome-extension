@@ -1,5 +1,4 @@
 import Vue, { VNode } from 'vue';
-import { registerGlobalComponent } from '@/utils/register';
 import { EditorState, Message } from '@/model/types';
 import App from './App.vue';
 
@@ -21,8 +20,6 @@ function sendMessage(message: Message): void {
 }
 
 function initEditor(): void {
-  registerGlobalComponent();
-
   const vm = new Vue({
     data: state,
 

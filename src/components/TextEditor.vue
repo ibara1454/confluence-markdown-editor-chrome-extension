@@ -7,9 +7,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import VTextarea from '@/basics/VTextarea.vue';
 
 export default Vue.extend({
   name: 'TextEditor',
+
+  components: { VTextarea },
 
   props: {
     value: { type: String, required: false, default: '' },
