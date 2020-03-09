@@ -37,6 +37,7 @@ export default {
       });
       iApp.$mount(el); // mount into iframe
       this.iApp = iApp; // cache instance for later updates
+      this.$emit('loaded');
     },
   },
 };
