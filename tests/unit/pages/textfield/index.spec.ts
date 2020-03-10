@@ -1,7 +1,6 @@
 import expect from 'expect';
 import { JSDOM } from 'jsdom';
 import main from '@/pages/textfield/index';
-import Vue from 'vue';
 
 // Generate dummy DOM tree
 const factory = (): Document => {
