@@ -118,7 +118,7 @@ function setupTextField(): void {
         text(val: string): void {
           const message: Message = {
             event: 'ContentChanged',
-            payload: { text: this.text },
+            payload: { text: val },
           };
           sendMessage(message);
         },
