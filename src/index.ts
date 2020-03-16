@@ -165,22 +165,24 @@ function main(): void {
   // TODO: evaluate current page whether it should be applied
   // Listen messages sent from from background
   chrome.runtime.onMessage.addListener((message: Message) => {
-    if (message.event === 'PageChanged') {
-      console.log('event:page changed');
-      // Run setup if current page is editpage
-      if (isTargetPage(window.location.href)) {
-        setup();
-      }
-    } else if (message.event === 'ContentChanged') {
-      const text = message.payload.text;
-      state.text = text;
-    } else if (message.event === 'EditorInit') {
+    switch (message.event) {
+      case 'PageChanged':
+        // Run setup if current page is editpage
+        if (isTargetPage(window.location.href)) {
+          setup();
+        }
+        break;
+      case 'ContentChanged':
+        state.text = message.payload.text;
+        break;
+      case 'EditorInit':
         sendMessage({
           event: 'EditorInit',
           payload: { text: state.text },
         });
+        break;
+      default:
     }
-
     return true;
   });
 
