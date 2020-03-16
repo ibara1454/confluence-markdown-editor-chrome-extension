@@ -84,16 +84,15 @@ function setupMarkdownEditor(): void {
   }
 }
 
-function getTextFieldValue(): string | undefined {
-  const iframe = document.getElementById(iframeId) as HTMLIFrameElement | null;
-  const innerDocument = iframe?.contentDocument;
-  const body = innerDocument?.body;
-  const child = body?.firstElementChild as HTMLElement | null | undefined;
-  if (child) {
-    const tagName = child.tagName;
-    if (tagName === 'PRE') {
-      return child.innerText;
-    }
+/**
+ * Return the content of first element `<pre></pre>` of given document' body.
+ * @param doc a Document.
+ * @returns inner text of first element `<pre></pre>`.
+ */
+function getTextFieldValue(doc: Document): string | undefined {
+  const child = doc.body?.firstElementChild;
+  if (child && child.tagName === 'PRE') {
+    return (child as HTMLElement).innerText;
   }
   return undefined;
 }
@@ -103,7 +102,7 @@ function setupTextField(): void {
   const innerDocument = iframe?.contentDocument;
   if (innerDocument) {
     const body = innerDocument.body;
-    const text = getTextFieldValue();
+    const text = getTextFieldValue(innerDocument);
     if (text) {
       state.text = text;
     }
