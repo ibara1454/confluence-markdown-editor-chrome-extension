@@ -4,6 +4,7 @@ import config from 'config';
 import Vue from 'vue';
 import escape from 'lodash.escape';
 import { Message, EditorState } from './model/types';
+import { sendMessage } from './utils/extension';
 
 // Id of toolbar
 const toolbarId = 'toolbar';
@@ -51,12 +52,6 @@ const template = `
   </tbody>
 </table>
 `;
-
-function sendMessage(message: Message): void {
-  // Event will be fired in every frame except for the sender's frame
-  // https://developer.chrome.com/apps/runtime#method-sendMessage
-  chrome.runtime.sendMessage(message);
-}
 
 /**
  * Setup markdown editor.
@@ -180,12 +175,10 @@ function main(): void {
       const text = message.payload.text;
       state.text = text;
     } else if (message.event === 'EditorInit') {
-      // Event will be fired in every frame except for the sender's frame
-      // https://developer.chrome.com/apps/runtime#method-sendMessage
-      chrome.runtime.sendMessage({
-        event: 'EditorInit',
-        payload: { text: state.text },
-      });
+        sendMessage({
+          event: 'EditorInit',
+          payload: { text: state.text },
+        });
     }
 
     return true;
