@@ -3,9 +3,14 @@
   "description" : "Base Level Extension",
   "version": "0.0.0",
   "manifest_version": 2,
+  "icons": {
+    "32": "icons/icon_32.png",
+    "64": "icons/icon_64.png",
+    "128": "icons/icon_128.png"
+  },
   "browser_action": {
     "default_popup": "public/index.html",
-    "default_icon": "icons/small.png"
+    "default_icon": "icons/icon_32.png"
   },
 
   "permissions": [
