@@ -80,7 +80,6 @@ function setupMarkdownEditor(): void {
     editorWrapper.style.right = '0';
     editorWrapper.style.height = 'calc(100% - 60px)';
     rte.appendChild(editorWrapper);
-    editorWrapper.focus();
   }
 }
 
