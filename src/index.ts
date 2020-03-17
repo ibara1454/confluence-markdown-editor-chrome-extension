@@ -59,15 +59,10 @@ const template = `
 function setupMarkdownEditor(): void {
   // Find the iframe of editor
   const rte = document.getElementById('rte');
-  const iframe = document.getElementById(iframeId) as HTMLIFrameElement | null;
-  const innerDocument = iframe?.contentDocument;
   const toolbar = document.getElementById(toolbarId);
-  if (rte && innerDocument && toolbar) {
+  if (rte && toolbar) {
     // Remove toolbar
     toolbar.remove();
-    // // Hide html macro element and other empty elements
-    // hideByClass(innerDocument, htmlMacro);
-
     // Change the position of parent be difference from static, so that
     // the child with style `position: absolute` could works fine.
     rte.style.position = 'relative';
