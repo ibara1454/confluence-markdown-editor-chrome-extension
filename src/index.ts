@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Editor from '@/pages/editor/App.vue';
 import escape from 'lodash.escape';
+import path from 'path';
 import { Message, EditorState } from './model/types';
 
 // Id of toolbar
@@ -49,6 +50,13 @@ const template = `
   </tbody>
 </table>
 `;
+
+function applyStyle() {
+  const doc = document;
+  const link = doc.createElement('link');
+  link.rel = chrome.runtime.getURL(path.resolve('dist', 'app.css'));
+  doc.appendChild(link);
+}
 
 /**
  * Disable toolbar.
@@ -133,6 +141,7 @@ function setup(): void {
     setupTextField();
     setupMarkdownEditor();
     disableToolbar();
+    applyStyle();
   }
 }
 
