@@ -54,8 +54,10 @@ const template = `
 function applyStyle(): void {
   const doc = document;
   const link = doc.createElement('link');
-  link.rel = chrome.runtime.getURL(path.resolve('dist', 'app.css'));
-  doc.appendChild(link);
+  link.type = 'text/css';
+  link.rel = 'stylesheet';
+  link.href = chrome.runtime.getURL(path.resolve('dist', 'app.css'));
+  doc.head.appendChild(link);
 }
 
 /**
