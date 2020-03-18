@@ -51,7 +51,7 @@ const template = `
 </table>
 `;
 
-function applyStyle() {
+function applyStyle(): void {
   const doc = document;
   const link = doc.createElement('link');
   link.rel = chrome.runtime.getURL(path.resolve('dist', 'app.css'));
