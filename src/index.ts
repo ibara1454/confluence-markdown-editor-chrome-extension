@@ -1,10 +1,7 @@
-import editor from '@/pages/editor/index.html';
-import path from 'path';
-import config from 'config';
 import Vue from 'vue';
+import Editor from '@/pages/editor/App.vue';
 import escape from 'lodash.escape';
 import { Message, EditorState } from './model/types';
-import { sendMessage } from './utils/extension';
 
 // Id of toolbar
 const toolbarId = 'toolbar';
@@ -54,27 +51,41 @@ const template = `
 `;
 
 /**
+ * Disable toolbar.
+ */
+function disableToolbar(): void {
+  const toolbar = document.getElementById(toolbarId);
+  if (toolbar) {
+    // Remove toolbar
+    toolbar.remove();
+  }
+}
+
+/**
  * Setup markdown editor.
  */
 function setupMarkdownEditor(): void {
   // Find the iframe of editor
   const rte = document.getElementById('rte');
-  const toolbar = document.getElementById(toolbarId);
-  if (rte && toolbar) {
-    // Remove toolbar
-    toolbar.remove();
+  if (rte) {
     // Change the position of parent be difference from static, so that
     // the child with style `position: absolute` could works fine.
     rte.style.position = 'relative';
-    const editorWrapper = document.createElement('iframe');
-    editorWrapper.src = chrome.runtime.getURL(path.resolve(config.output, editor));
-    editorWrapper.style.position = 'absolute';
-    editorWrapper.style.top = '60px';
-    editorWrapper.style.bottom = '0';
-    editorWrapper.style.left = '0';
-    editorWrapper.style.right = '0';
-    editorWrapper.style.height = 'calc(100% - 60px)';
-    rte.appendChild(editorWrapper);
+    const editorWrapper = document.createElement('div');
+    const vue = new Vue({
+      render(h) {
+        return h(Editor, {
+          props: {
+            text: state.text,
+          },
+          on: {
+            // eslint-disable-next-line func-names
+            'update:text': (value: string) => { state.text = value; },
+          },
+        });
+      },
+    });
+    vue.$mount(editorWrapper);
   }
 }
 
@@ -106,16 +117,6 @@ function setupTextField(): void {
 
     const vue = new Vue({
       data: state,
-
-      watch: {
-        text(val: string): void {
-          const message: Message = {
-            event: 'ContentChanged',
-            payload: { text: val },
-          };
-          sendMessage(message);
-        },
-      },
     });
     vue.$mount(body);
   }
@@ -131,6 +132,7 @@ function setup(): void {
   if (enabled) {
     setupTextField();
     setupMarkdownEditor();
+    disableToolbar();
   }
 }
 
@@ -158,23 +160,9 @@ function main(): void {
   // TODO: evaluate current page whether it should be applied
   // Listen messages sent from from background
   chrome.runtime.onMessage.addListener((message: Message) => {
-    switch (message.event) {
-      case 'PageChanged':
-        // Run setup if current page is editpage
-        if (isTargetPage(window.location.href)) {
-          setup();
-        }
-        break;
-      case 'ContentChanged':
-        state.text = message.payload.text;
-        break;
-      case 'EditorInit':
-        sendMessage({
-          event: 'EditorInit',
-          payload: { text: state.text },
-        });
-        break;
-      default:
+    // Run setup if current page is editpage
+    if (isTargetPage(window.location.href)) {
+      setup();
     }
     return true;
   });

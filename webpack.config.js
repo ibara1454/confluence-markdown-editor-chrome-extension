@@ -11,8 +11,6 @@ module.exports = {
 
   entry: {
     index: './src/index.ts',
-    editor: './src/pages/editor/index.ts',
-    textfield: './src/pages/textfield/index.ts',
     background: './src/background.ts',
   },
 
