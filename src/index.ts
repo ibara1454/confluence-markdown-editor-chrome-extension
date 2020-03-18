@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Editor from '@/pages/editor/App.vue';
+import { getExternalUrl } from '@/utils/extension';
 import escape from 'lodash.escape';
-import path from 'path';
 import { Message, EditorState } from './model/types';
 
 // Id of toolbar
@@ -56,7 +56,7 @@ function applyStyle(): void {
   const link = doc.createElement('link');
   link.type = 'text/css';
   link.rel = 'stylesheet';
-  link.href = chrome.runtime.getURL(path.resolve('dist', 'app.css'));
+  link.href = getExternalUrl('app.css');
   doc.head.appendChild(link);
 }
 
