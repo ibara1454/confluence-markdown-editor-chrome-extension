@@ -72,6 +72,7 @@
     "lodash.escape": "^4.0.1",
     "lodash.upperfirst": "^4.3.1",
     "marked": "^0.8.0",
+    "mini-css-extract-plugin": "^0.9.0",
     "vue": "^2.6.11"
   }
 }
