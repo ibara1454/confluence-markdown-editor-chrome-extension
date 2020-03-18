@@ -82,6 +82,7 @@ function setupMarkdownEditor(): void {
     // the child with style `position: absolute` could works fine.
     rte.style.position = 'relative';
     const editorWrapper = document.createElement('div');
+    rte.appendChild(editorWrapper);
     const vue = new Vue({
       render(h) {
         return h(Editor, {
