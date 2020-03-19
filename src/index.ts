@@ -1,15 +1,10 @@
 import Vue from 'vue';
 import Editor from '@/pages/editor/App.vue';
-import { getExternalUrl } from '@/utils/extension';
 import escape from 'lodash.escape';
 import { Message, EditorState } from './model/types';
 
-// Id of toolbar
-const toolbarId = 'toolbar';
 // Id of iframe of Inner document
 const iframeId = 'wysiwygTextarea_ifr';
-// Class name of html-macro
-const htmlMacro = 'wysiwyg-macro';
 
 const state: EditorState = {
   text: '',
@@ -52,23 +47,32 @@ const template = `
 `;
 
 function applyStyle(): void {
-  const doc = document;
-  const link = doc.createElement('link');
-  link.type = 'text/css';
-  link.rel = 'stylesheet';
-  link.href = getExternalUrl('app.css');
-  doc.head.appendChild(link);
-}
-
-/**
- * Disable toolbar.
- */
-function disableToolbar(): void {
-  const toolbar = document.getElementById(toolbarId);
-  if (toolbar) {
-    // Remove toolbar
-    toolbar.remove();
+  const style = document.createElement('style');
+  // Change the position of parent be difference from static, so that
+  // the child with style `position: absolute` could works fine.
+  style.innerText = `
+  #rte {
+    position: relative !important;
   }
+
+  #confluence-markdown-editor {
+    position: absolute !important;
+    top: 80px !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: calc(100% - 90px) !important;
+    border: 0 !important;
+    margin: 0 !important;
+  }
+
+  #toolbar {
+    display: block !important;
+    height: 0 !important;
+    overflow-x: hidden !important;
+  }
+  `;
+  document.body.appendChild(style);
 }
 
 /**
@@ -78,9 +82,6 @@ function setupMarkdownEditor(): void {
   // Find the iframe of editor
   const rte = document.getElementById('rte');
   if (rte) {
-    // Change the position of parent be difference from static, so that
-    // the child with style `position: absolute` could works fine.
-    rte.style.position = 'relative';
     const editorWrapper = document.createElement('div');
     rte.appendChild(editorWrapper);
     const vue = new Vue({
@@ -143,7 +144,6 @@ function setup(): void {
   if (enabled) {
     setupTextField();
     setupMarkdownEditor();
-    disableToolbar();
     applyStyle();
   }
 }

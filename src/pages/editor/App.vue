@@ -1,5 +1,5 @@
 <template>
-  <context class="frame">
+  <context id="confluence-markdown-editor">
     <!-- Load stylesheet again, since outside style cannot effect on inner frame -->
     <link type="text/css" rel="stylesheet" :href="computedUrl">
     <markdown-editor class="editor" v-model="computedText" />
@@ -38,15 +38,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.frame {
-  position: absolute;
-  top: 60px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: calc(100% - 60px);
-}
-
 .editor {
   height: 100%;
   width: 100%;
