@@ -21,7 +21,6 @@
 import Vue from 'vue';
 import EditorStore from '@/store/modules/editor';
 import { getModule } from 'vuex-module-decorators';
-import escape from 'lodash.escape';
 
 const editorModule = getModule(EditorStore);
 
