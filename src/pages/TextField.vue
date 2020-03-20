@@ -19,10 +19,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import EditorStore from '@/store/modules/editor';
-import { getModule } from 'vuex-module-decorators';
-
-const editorModule = getModule(EditorStore);
+import editorStore from '@/store/modules/editor';
 
 const styleScript = `
 <${'script'}>
@@ -49,9 +46,9 @@ export default Vue.extend({
 
   computed: {
     computedText: {
-      get(): string { return editorModule.TEXT; },
+      get(): string { return editorStore.TEXT; },
       set(val: string): void {
-        editorModule.SET_TEXT(val);
+        editorStore.SET_TEXT(val);
       },
     },
 

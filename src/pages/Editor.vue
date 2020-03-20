@@ -10,11 +10,8 @@
 import Vue from 'vue';
 import Context from '@/components/Context.vue';
 import MarkdownEditor from '@/components/MarkdownEditor.vue';
-import EditorStore from '@/store/modules/editor';
+import editorStore from '@/store/modules/editor';
 import { getExternalUrl } from '@/utils/extension';
-import { getModule } from 'vuex-module-decorators';
-
-const editorModule = getModule(EditorStore);
 
 export default Vue.extend({
   name: 'Editor',
@@ -27,10 +24,10 @@ export default Vue.extend({
     },
 
     computedText: {
-      get(): string { return editorModule.TEXT; },
+      get(): string { return editorStore.TEXT; },
 
       set(value: string): void {
-        editorModule.SET_TEXT(value);
+        editorStore.SET_TEXT(value);
       },
     },
   },

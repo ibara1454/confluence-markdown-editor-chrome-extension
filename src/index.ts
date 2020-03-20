@@ -2,13 +2,10 @@ import Vue from 'vue';
 import store from '@/store';
 import Editor from '@/pages/Editor.vue';
 import TextField from '@/pages/TextField.vue';
-import EditorStore from '@/store/modules/editor';
-import { getModule } from 'vuex-module-decorators';
+import editorStore from '@/store/modules/editor';
 
 // Id of iframe of Inner document
 const iframeId = 'wysiwygTextarea_ifr';
-
-const editorModule = getModule(EditorStore);
 
 function applyStyle(): void {
   const style = document.createElement('style');
@@ -76,7 +73,7 @@ function setupTextField(): void {
     const body = innerDocument.body;
     const text = getTextFieldValue(innerDocument);
     if (text) {
-      editorModule.SET_TEXT(text);
+      editorStore.SET_TEXT(text);
     }
 
     const vue = new Vue({
