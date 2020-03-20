@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Editor from '@/pages/editor/App.vue';
 import escape from 'lodash.escape';
-import { Message, EditorState } from './model/types';
 
 // Id of iframe of Inner document
 const iframeId = 'wysiwygTextarea_ifr';
@@ -171,7 +170,7 @@ function isTargetPage(url: string): boolean {
 function main(): void {
   // TODO: evaluate current page whether it should be applied
   // Listen messages sent from from background
-  chrome.runtime.onMessage.addListener((message: Message) => {
+  chrome.runtime.onMessage.addListener(() => {
     // Run setup if current page is editpage
     if (isTargetPage(window.location.href)) {
       setup();
