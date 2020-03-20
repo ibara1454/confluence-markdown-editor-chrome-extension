@@ -9,6 +9,7 @@ import Vue from 'vue';
  * Build an isolated context witch is differenct to current document.
  *
  * This component is a wrapper of `iframe`.
+ * https://forum.vuejs.org/t/render-inside-iframe/6419
  */
 export default {
   name: 'Context',
