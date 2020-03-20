@@ -9,7 +9,7 @@
     "128": "icons/icon_128.png"
   },
   "browser_action": {
-    "default_popup": "public/index.html",
+    "default_popup": "index.html",
     "default_icon": "icons/icon_32.png"
   },
 
@@ -18,13 +18,13 @@
   ],
 
   "background": {
-    "scripts":["dist/background.js"]
+    "scripts":["background.js"]
   },
 
   "content_scripts": [
     {
       "matches": ["https://CONFLUENCE_PAGE/*"],
-      "js": ["dist/index.js"],
+      "js": ["index.js"],
       "css": []
     }
   ],
