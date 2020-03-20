@@ -105,7 +105,7 @@ function setup(): void {
  */
 function isTargetPage(url: string): boolean {
   // The url pattern of editpage
-  const EDITPAGE_PATTERN = /editpage\.action\?pageId=\d+$/;
+  const EDITPAGE_PATTERN = /editpage\.action$/;
   // The url pattern of createpage
   const CREATEPAGE_PATTERN = /createpage\.action/;
   // Determine the given url whether it is "editpage" or "createpage"
