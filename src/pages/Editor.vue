@@ -17,7 +17,7 @@ import { getModule } from 'vuex-module-decorators';
 const editorModule = getModule(EditorStore);
 
 export default Vue.extend({
-  name: 'App',
+  name: 'Editor',
 
   components: { Context, MarkdownEditor },
 

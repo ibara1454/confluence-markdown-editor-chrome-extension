@@ -46,7 +46,7 @@ script.onload = () => {
 
 // TODO: set the height of component dynamically
 export default Vue.extend({
-  name: 'App',
+  name: 'TextField',
 
   computed: {
     computedText: {

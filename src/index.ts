@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import store from '@/store';
-import Editor from '@/pages/editor/App.vue';
-import TextField from '@/pages/textfield/App.vue';
+import Editor from '@/pages/Editor.vue';
+import TextField from '@/pages/TextField.vue';
 import EditorStore from '@/store/modules/editor';
 import { getModule } from 'vuex-module-decorators';
 
