@@ -1,8 +1,10 @@
-import { VuexModule, Module, Mutation } from 'vuex-module-decorators';
+import {
+  VuexModule, Module, Mutation, getModule,
+} from 'vuex-module-decorators';
 import store from '@/store';
 
-@Module({ dynamic: true, store, name: 'User' })
-export default class EditorModule extends VuexModule {
+@Module({ dynamic: true, store, name: 'Editor' })
+class EditorModule extends VuexModule {
   private text = '';
 
   public get TEXT(): string {
@@ -14,3 +16,5 @@ export default class EditorModule extends VuexModule {
     this.text = value;
   }
 }
+
+export default getModule(EditorModule);
