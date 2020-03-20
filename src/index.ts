@@ -1,49 +1,14 @@
 import Vue from 'vue';
+import store from '@/store';
 import Editor from '@/pages/editor/App.vue';
-import escape from 'lodash.escape';
+import TextField from '@/pages/textfield/App.vue';
+import EditorStore from '@/store/modules/editor';
+import { getModule } from 'vuex-module-decorators';
 
 // Id of iframe of Inner document
 const iframeId = 'wysiwygTextarea_ifr';
 
-const state: EditorState = {
-  text: '',
-  style: '',
-};
-
-const styleScript = `
-<script>
-const main = document.getElementById('main-content');
-const text = main.firstElementChild.innerText;
-const iframe = document.createElement('iframe');
-main.innerHTML = '';
-main.appendChild(iframe);
-
-const script = document.createElement('script');
-script.src = "https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js";
-document.body.appendChild(script);
-
-script.onload = () => {
-  iframe.contentDocument.body.innerHTML = marked(text);
-  iframe.contentDocument.body.style = 'margin: 0; overflow-y: hidden;';
-  iframe.style = 'width: 100%; border: 0;';
-  iframe.style.height = iframe.contentDocument.body.offsetHeight + 'px';
-};
-
-</script>
-`;
-
-const template = `
-<pre>{{ text }}</pre>
-<table class="wysiwyg-macro" data-macro-name="html" data-macro-schema-version="1" style="background-image: url(/plugins/servlet/confluence/placeholder/macro-heading?definition=e2h0bWx9&amp;locale=ja_JP&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT" data-mce-selected="1">
-  <tbody>
-    <tr>
-      <td class="wysiwyg-macro-body">
-        <pre>${escape(styleScript.trim())}</pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
-`;
+const editorModule = getModule(EditorStore);
 
 function applyStyle(): void {
   const style = document.createElement('style');
@@ -84,17 +49,8 @@ function setupMarkdownEditor(): void {
     const editorWrapper = document.createElement('div');
     rte.appendChild(editorWrapper);
     const vue = new Vue({
-      render(h) {
-        return h(Editor, {
-          props: {
-            text: state.text,
-          },
-          on: {
-            // eslint-disable-next-line func-names
-            'update:text': (value: string) => { state.text = value; },
-          },
-        });
-      },
+      store,
+      render: (h) => h(Editor),
     });
     vue.$mount(editorWrapper);
   }
@@ -120,14 +76,12 @@ function setupTextField(): void {
     const body = innerDocument.body;
     const text = getTextFieldValue(innerDocument);
     if (text) {
-      state.text = text;
+      editorModule.SET_TEXT(text);
     }
-    // replace all child nodes with template
-    // see https://stackoverflow.com/a/3955238
-    body.innerHTML = template;
 
     const vue = new Vue({
-      data: state,
+      store,
+      render: (h) => h(TextField),
     });
     vue.$mount(body);
   }
