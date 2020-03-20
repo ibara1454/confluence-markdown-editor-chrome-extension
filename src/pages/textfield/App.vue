@@ -1,50 +1,64 @@
 <template>
-  <context class="frame">
-    <!-- Workaround of rendering style tag -->
-    <v-style>{{ rawStyle }}</v-style>
-    <div v-html="computedPreview" />
-  </context>
+  <body id="tinymce"
+    data-id="wysiwygTextarea"
+    contenteditable="true"
+    class="mce-content-body aui-theme-default mceContentBody wiki-content fullsize notranslate page-edit"
+    style="padding-top: 108px;">
+    <pre>{{ computedText }}</pre>
+    <table class="wysiwyg-macro" data-macro-name="html" data-macro-schema-version="1" style="background-image: url(/plugins/servlet/confluence/placeholder/macro-heading?definition=e2h0bWx9&amp;locale=ja_JP&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT" data-mce-selected="1">
+      <tbody>
+        <tr>
+          <td class="wysiwyg-macro-body">
+            <pre>{{ computedContent }}</pre>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import VStyle from '@/basics/VStyle.vue';
-import Context from '@/components/Context.vue';
-import marked from 'marked';
-import hljs from 'highlight.js';
+import EditorStore from '@/store/modules/editor';
+import { getModule } from 'vuex-module-decorators';
+import escape from 'lodash.escape';
+
+const editorModule = getModule(EditorStore);
+
+const styleScript = `
+<${'script'}>
+const main = document.getElementById('main-content');
+const text = main.firstElementChild.innerText;
+const iframe = document.createElement('iframe');
+main.innerHTML = '';
+main.appendChild(iframe);
+const script = document.createElement('script');
+script.src = "https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js";
+document.body.appendChild(script);
+script.onload = () => {
+  iframe.contentDocument.body.innerHTML = marked(text);
+  iframe.contentDocument.body.style = 'margin: 0; overflow-y: hidden;';
+  iframe.style = 'width: 100%; border: 0;';
+  iframe.style.height = iframe.contentDocument.body.offsetHeight + 'px';
+};
+</${'script'}>
+`;
 
 // TODO: set the height of component dynamically
 export default Vue.extend({
   name: 'App',
 
-  components: { Context, VStyle },
-
-  props: {
-    text: { type: String, required: true },
-    rawStyle: { type: String, required: true },
-  },
-
   computed: {
-    computedPreview(): string {
-      return marked(this.text);
-    },
-  },
-
-  created() {
-    // Apply highlight.js on code blocks
-    marked.setOptions({
-      highlight(code, lang) {
-        const result = lang !== '' ? hljs.highlightAuto(code, [lang]) : hljs.highlightAuto(code);
-        return result.value;
+    computedText: {
+      get(): string { return editorModule.TEXT; },
+      set(val: string): void {
+        editorModule.SET_TEXT(val);
       },
-    });
+    },
+
+    computedContent(): string {
+      return styleScript;
+    },
   },
 });
 </script>
-
-<style scoped>
-.frame {
-  border: 0;
-  width: 100%;
-}
-</style>

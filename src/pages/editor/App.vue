@@ -10,16 +10,16 @@
 import Vue from 'vue';
 import Context from '@/components/Context.vue';
 import MarkdownEditor from '@/components/MarkdownEditor.vue';
+import EditorStore from '@/store/modules/editor';
 import { getExternalUrl } from '@/utils/extension';
+import { getModule } from 'vuex-module-decorators';
+
+const editorModule = getModule(EditorStore);
 
 export default Vue.extend({
   name: 'App',
 
   components: { Context, MarkdownEditor },
-
-  props: {
-    text: { type: String, required: true },
-  },
 
   computed: {
     computedUrl(): string {
@@ -27,10 +27,10 @@ export default Vue.extend({
     },
 
     computedText: {
-      get(): string { return this.text; },
+      get(): string { return editorModule.TEXT; },
 
       set(value: string): void {
-        this.$emit('update:text', value);
+        editorModule.SET_TEXT(value);
       },
     },
   },
