@@ -11,7 +11,7 @@ import Vue from 'vue';
 import Context from '@/components/Context.vue';
 import MarkdownEditor from '@/components/MarkdownEditor.vue';
 import editorStore from '@/store/modules/editor';
-import { getExternalUrl } from '@/utils/extension';
+import { getExternalUrl } from '@/utils';
 
 export default Vue.extend({
   name: 'Editor',
