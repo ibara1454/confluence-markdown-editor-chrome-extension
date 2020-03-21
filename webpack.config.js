@@ -3,6 +3,7 @@ const config = require('./config');
 const VueLoaderPlugin = require("vue-loader/lib/plugin")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const mode = process.env.NODE_ENV || 'production';
 
@@ -54,6 +55,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'app.css'
     }),
+    new CopyPlugin([{ from: 'public' }]),
   ],
 
   resolve: {
