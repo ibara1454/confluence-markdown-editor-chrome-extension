@@ -1,3 +1,5 @@
+// Enable dependency injection
+import '@/inject';
 import Vue from 'vue';
 import store from '@/store';
 import Editor from '@/pages/Editor.vue';
