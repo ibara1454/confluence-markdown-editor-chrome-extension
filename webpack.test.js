@@ -1,5 +1,6 @@
 const nodeExternals = require('webpack-node-externals');
-const config = require('./webpack.config');
+const merge = require('webpack-merge');
+const dev = require('./webpack.dev');
 
 // Override the config of vue-loader
 // The default value of this option is `true` when `target: node`,
@@ -10,13 +11,9 @@ const config = require('./webpack.config');
 // The workaround is setting `optimizeSSR` to false.
 // https://github.com/vuejs/vue-loader/issues/885#issuecomment-375802186
 // https://vue-loader-v14.vuejs.org/ja/options.html#optimizessr
-config.module.rules[0].options.optimizeSSR = false;
+dev.module.rules[0].options.optimizeSSR = false;
 
-module.exports = {
-  ...config,
-
-  mode: 'development',
-
+module.exports = merge(dev, {
   // In order to use JSDOM for testing dom's modifications,
   // `target` should be set to `node`.
   target: 'node',
@@ -27,4 +24,4 @@ module.exports = {
     nodeExternals(), // in order to ignore all modules in node_modules folder from bundling
     // { jsdom: 'jsdom' },
   ],
-};
+});
