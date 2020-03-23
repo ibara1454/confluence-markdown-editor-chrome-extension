@@ -1,9 +1,14 @@
 import Domain from '@/models/domain';
 import { injectable, inject } from 'tsyringe';
 import { DomainStorage } from '@/models/domain-storage';
+import { AsynchronizedRepository } from '@/models/repository';
 import { v4 as uuidv4 } from 'uuid';
 
-export interface DomainRepository {
+/**
+ * A high-level repository provides asynchronized read/write interfaces
+ * to storage of domains.
+ */
+export interface DomainRepository extends AsynchronizedRepository<string, Domain> {
   /**
    * Add a given domain to storage.
    * @param domain any domain.
