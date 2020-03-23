@@ -53,7 +53,12 @@ export class DomainStorageImpl implements DomainStorage {
   private domainKey = 'domains';
 
   // promisified function of `chrome.storage.sync.get`
-  private syncGet = promisify1(chrome.storage.sync.get.bind(undefined));
+  private syncGet = promisify1(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (keys: any, callback: (items: { [key: string]: any }) => void) => {
+      chrome.storage.sync.get(keys, callback);
+    },
+  );
 
   // promisified function of `chrome.storage.sync.set`
   private syncSet = promisify1(
