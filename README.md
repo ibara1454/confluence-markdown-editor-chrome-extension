@@ -1,40 +1,51 @@
 # Confluence markdown editor chrome extension
 
-----
+A Chrome extension provides Markdown editor for Confluence.
 
-- [Confluence markdown editor chrome extension](#confluence-markdown-editor-chrome-extension)
-  - [What's this](#whats-this)
-  - [Feature](#feature)
-  - [Installation](#installation)
-  - [免責事項](#%e5%85%8d%e8%b2%ac%e4%ba%8b%e9%a0%85)
-  - [既知バグ](#%e6%97%a2%e7%9f%a5%e3%83%90%e3%82%b0)
-  - [Contribute](#contribute)
+:warning: Notice: This project is unstable. It is still in progress.
 
 ## What's this
 
-![sample](./sample.gif)
+This project is proposed to provide a markdown editor in Confluence.
+
+As known as Atlassian Confluence has many convenience macros and features in the WYSIWYG editor.
+But there is no way to use markdown like what you do in GitHub.
+
+By install this extension, you can choose to open a markdown editor in your documents.
 
 ## Feature
 
-## Installation
+TBD.
 
-（ストアに上がっていない拡張機能をパッケージ経由でインストール出来ないため、手動でインストールする必要がある）
-
-
-1. ダウンロードしたアーカイブファイルを展開する
-2. Chromeの拡張機能ページ(chrome://extensions/)を開く
-3. 展開したフォルダをドロップしてインストールするか、または「パッケージ化されていない拡張機能を読み込む」でインストールする
-
-## 免責事項
-
-本拡張はまだ実験実装なため、不具合により引き起こした問題について、一切の責任を負わない。
-
-## 既知バグ
+## Usage
 
 TBD.
 
-## Contribute
+## Installation
 
-不具合報告等はissuesまで。
+### Chrome web store
 
-Maintainer: Chiajun Wang <ibara1454@gmail.com>
+(Not ready. Coming soon...)
+
+### Build from source
+
+Prerequisites: Node.js (`>=11.0.0`)
+
+Install dependencies
+
+```bash
+$ npm install
+```
+
+Then build extension from sources
+
+```bash
+$ npm run build
+```
+
+By default, the extension will built into `dist` directory.
+Load the extension from `chrome://extensions` page.
+
+## Contributing
+
+Since his project is still in progress, it is not ready to accept any pull request or issues.
