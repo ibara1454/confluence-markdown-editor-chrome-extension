@@ -8,6 +8,7 @@ module.exports = {
 
   entry: {
     index: './src/index.ts',
+    plugin: './src/plugin.ts',
     background: './src/background.ts',
   },
 
