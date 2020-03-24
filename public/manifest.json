@@ -14,7 +14,7 @@
   },
 
   "permissions": [
-    "tabs", "webNavigation", "history"
+    "tabs", "webNavigation", "history", "storage"
   ],
 
   "background": {
