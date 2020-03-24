@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 import sinon from 'sinon';
 import expect from 'expect';
 import Domain from '@/models/domain';
-import { DomainRepositoryImpl } from '@/models/domain-repository';
+import DomainRepositoryImpl from '@/models/domain-repository-impl';
 
 
 describe('DomainRepository', () => {

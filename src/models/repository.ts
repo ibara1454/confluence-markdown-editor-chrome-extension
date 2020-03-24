@@ -1,15 +1,3 @@
-export interface Repository<Id, T> {
-  save(item: T): Id;
-
-  update(id: Id, item: T): void;
-
-  find(id: Id): T | undefined;
-
-  findAll(): T[];
-
-  remove(id: Id): void;
-}
-
 export interface AsynchronizedRepository<Id, T> {
   save(item: T): Promise<Id>;
 
