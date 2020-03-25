@@ -2,12 +2,14 @@ const path = require('path');
 const config = require('./config');
 const VueLoaderPlugin = require("vue-loader/lib/plugin")
 const CopyPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   target: 'web',
 
   entry: {
     index: './src/index.ts',
+    plugin: './src/plugin.ts',
     background: './src/background.ts',
   },
 
@@ -35,6 +37,10 @@ module.exports = {
   plugins:[
     new VueLoaderPlugin(),
     new CopyPlugin([{ from: 'public' }]),
+    new HtmlWebpackPlugin({
+      template: 'template/index.html',
+      chunks: ['index'],
+    }),
   ],
 
   resolve: {

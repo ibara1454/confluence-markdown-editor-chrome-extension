@@ -10,6 +10,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha-webpack --webpack-config webpack.test.js --require tests/unit/setup.js tests/unit/**/*.spec.*",
     "test:watch": "cross-env NODE_ENV=test mocha-webpack --watch --webpack-config webpack.test.js --require tests/unit/setup.js tests/unit/**/*.spec.*",
+    "dev": "webpack-dev-server --config webpack.dev.js --open",
     "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js",
     "lint": "cross-env NODE_ENV=development eslint 'src/**/*.*'",
     "storybook": "cross-env NODE_ENV=development start-storybook -p 6006",
@@ -52,6 +53,7 @@
     "eslint-plugin-vue": "^6.0.0",
     "expect": "^25.1.0",
     "file-loader": "^5.1.0",
+    "html-webpack-plugin": "^4.0.0",
     "jsdom": "^16.1.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^7.0.1",
@@ -68,6 +70,7 @@
     "vuex-module-decorators": "^0.16.1",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.2.2",
     "webpack-node-externals": "^1.7.2"
   },
