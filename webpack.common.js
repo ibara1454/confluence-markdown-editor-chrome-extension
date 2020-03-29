@@ -18,10 +18,6 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: {
-          scss: 'vue-style-loader!css-loader!sass-loader', // <style lang="scss">
-          sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
-        },
       },
       {
         test: /\.tsx?$/,
@@ -30,6 +26,50 @@ module.exports = {
         options: {
           appendTsSuffixTo: [/\.vue$/],
         }
+      },
+      {
+        test: /\.(png|gif|jpg)/,
+        loader: 'file-loader',
+        options: {
+          // Workaround of getting url string instead of module object
+          // https://github.com/vuejs/vue-loader/issues/1612#issuecomment-559366730
+          esModule: false,
+        },
+      },
+      // See https://github.com/webpack-contrib/sass-loader
+      {
+        test: /\.sass$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            // Requires sass-loader@^8.0.0
+            options: {
+              implementation: require('sass'),
+              sassOptions: {
+                indentedSyntax: true // optional
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            // Requires sass-loader@^8.0.0
+            options: {
+              implementation: require('sass'),
+              sassOptions: {
+                indentedSyntax: false // optional
+              },
+            },
+          },
+        ],
       },
     ],
   },

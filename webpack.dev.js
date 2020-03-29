@@ -9,6 +9,8 @@ module.exports = merge(common, {
       {
         test: /\.css$/,
         use: [
+          // https://github.com/vuejs/vue-style-loader
+          'vue-style-loader',
           'css-loader', // 1. Turns css into commonJS
         ]
       },
