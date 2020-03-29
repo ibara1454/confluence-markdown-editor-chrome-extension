@@ -54,11 +54,10 @@ export default class DomainRepositoryImpl implements DomainRepository {
 
   /**
    * Return all domain contains in storage.
-   * @returns the domain list.
+   * @returns object contains domain with unique id respectively.
    */
-  async findAll(): Promise<Domain[]> {
-    const domains = await this.storage.get();
-    return Object.values(domains);
+  async findAll(): Promise<{ [id: string]: Domain }> {
+    return this.storage.get();
   }
 
   /**

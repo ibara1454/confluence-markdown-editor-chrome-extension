@@ -29,12 +29,10 @@ interface DomainRepository extends AsynchronizedRepository<string, Domain> {
   find(id: string): Promise<Domain | undefined>;
 
   /**
-   * Find a specific domain by id.
-   * If the id exist, then the corresponding domain will be returned.
-   * Otherwise, undefined will be returned.
-   * @param id the id of such domain.
+   * Return all domain contains in storage.
+   * @returns object contains domain with unique id respectively.
    */
-  findAll(): Promise<Domain[]>;
+  findAll(): Promise<{ [id: string]: Domain }>;
 
   /**
    * Remove a specific domain by id.
