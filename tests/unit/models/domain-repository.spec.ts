@@ -108,21 +108,22 @@ describe('DomainRepository', () => {
       // Verifications
       mock.get.verify();
       mock.set.verify();
-      expect(res).toEqual([]);
+      expect(res).toEqual({});
     });
 
     it('returns all records', async () => {
       const domain1 = { name: 'domain1' };
       const domain2 = { name: 'domain2' };
+      const records = { id1: domain1, id2: domain2 }
       // Conditions
-      mock.get.once().returns(Promise.resolve({ id1: domain1, id2: domain2 }));
+      mock.get.once().returns(Promise.resolve(records));
       mock.set.never();
       // Run
       const res = await domainRepository.findAll();
       // Verifications
       mock.get.verify();
       mock.set.verify();
-      expect(res.sort()).toEqual([domain1, domain2].sort());
+      expect(res).toEqual(records);
     });
   });
 

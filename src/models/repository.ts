@@ -5,7 +5,7 @@ export interface AsynchronizedRepository<Id, T> {
 
   find(id: Id): Promise<T | undefined>;
 
-  findAll(): Promise<T[]>;
+  findAll(): Promise<{ [id: string]: T }>;
 
   remove(id: Id): Promise<void>;
 }
