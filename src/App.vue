@@ -10,11 +10,13 @@
       </v-row>
       <v-row>
         <v-col align="center">
-          <p v-if="items.length > 0" class="body-2">
-            Submit domains of Confluence where you want to enable this extension.
-          </p>
-          <p v-else class="body-2">
-            Please submit at least one domain of Confluence to enable this extension.
+          <p class="body-2">
+            <template v-if="isEmpty">
+              Please submit at least one domain of Confluence to enable this extension.
+            </template>
+            <template v-else>
+              Submit domains of Confluence where you want to enable this extension.
+            </template>
           </p>
           <validation-observer ref="observer">
             <validation-provider v-slot="{ errors }" rules="required" name="domain">
@@ -34,18 +36,18 @@
       <v-row>
         <v-col>
           <v-card outlined
-            v-if="items.length > 0"
+            v-if="!isEmpty"
           >
             <v-list>
               <v-list-item
-                v-for="(item, i) in items"
-                :key="i"
+                v-for="item in domains"
+                :key="item.id"
               >
                 <v-list-item-content>
-                  <v-list-item-title v-text="item.name"></v-list-item-title>
+                  <v-list-item-title v-text="item.domain.name"></v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-action>
-                  <v-btn icon color="red" @click="remove(i)">
+                  <v-btn icon color="red" @click="remove(item.id)">
                     <v-icon color="red darken-2">mdi-delete-off-outline</v-icon>
                   </v-btn>
                 </v-list-item-action>
@@ -60,6 +62,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import DomainStore from '@/store/modules/domain';
+import Domain from './models/domain';
 
 export default Vue.extend({
   name: 'App',
@@ -67,9 +71,17 @@ export default Vue.extend({
   data() {
     return {
       input: '',
-      text: 'Hello World',
-      items: [] as Array<{ name: string }>,
     };
+  },
+
+  computed: {
+    domains(): Array<{ id: string; domain: Domain }> {
+      return DomainStore.DOMAINS;
+    },
+
+    isEmpty(): boolean {
+      return Object.keys(DomainStore.DOMAINS).length === 0;
+    },
   },
 
   methods: {
@@ -79,15 +91,17 @@ export default Vue.extend({
       if (!valid) {
         return;
       }
-      this.items.push({ name: this.input });
+      const domain = { name: this.input };
+      await DomainStore.save(domain);
       this.input = '';
       // Reset the validator to clear error messages
       observer.reset();
     },
 
-    remove(index: number): void {
+    remove(id: string): void {
       // Remove index from items
-      this.items.splice(index, 1);
+      // this.items.splice(index, 1);
+      DomainStore.remove(id);
     },
   },
 });
