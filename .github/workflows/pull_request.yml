@@ -1,28 +1,30 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-# Note: this name will be displayed on the state badge
-name: build
+name: pull request
 
 # Define triggers
 # https://help.github.com/ja/actions/reference/workflow-syntax-for-github-actions#on
 on:
-  push:
-    branches: [ master ]
+  pull_request:
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [10.x, 11.x]
+
     steps:
     - name: Checkout latest repository
       uses: actions/checkout@v2
 
-    - name: Use Node.js 11.x
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: 11.x
+        node-version: ${{ matrix.node-version }}
 
     # Save and restore from caches
     # For more information,
@@ -41,9 +43,3 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-
-    - name: Upload to artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: dist
-        path: ./dist
