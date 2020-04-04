@@ -1,6 +1,6 @@
 # Confluence markdown editor chrome extension
 
-![GitHub Actions](https://github.com/ibara1454/confluence-markdown-editor-chrome-extension/workflows/build/badge.svg)
+[![GitHub Actions](https://github.com/ibara1454/confluence-markdown-editor-chrome-extension/workflows/build/badge.svg)](https://github.com/ibara1454/confluence-markdown-editor-chrome-extension/actions?query=workflow%3Abuild)
 
 A Chrome extension provides Markdown editor for Confluence.
 
