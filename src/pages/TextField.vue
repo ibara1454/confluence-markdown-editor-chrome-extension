@@ -20,6 +20,7 @@
   style="padding-top: 108px;"
 >
   <pre>{{ computedText }}</pre>
+  <!-- eslint-disable max-len -->
   <table
     class="wysiwyg-macro"
     data-macro-name="html"
@@ -28,6 +29,7 @@
     data-macro-body-type="PLAIN_TEXT"
     data-mce-selected="1"
   >
+  <!-- eslint-enable max-len -->
     <tbody>
       <tr>
         <td class="wysiwyg-macro-body">

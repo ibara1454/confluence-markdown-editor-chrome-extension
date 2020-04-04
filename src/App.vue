@@ -86,6 +86,7 @@ export default Vue.extend({
 
   methods: {
     async add(): Promise<void> {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const observer = this.$refs.observer as any;
       const valid = await observer.validate();
       if (!valid) {
