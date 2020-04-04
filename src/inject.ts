@@ -1,5 +1,6 @@
 // Enable DI(dependency injection) container TSringe
 // see https://github.com/microsoft/tsyringe
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'reflect-metadata';
 import { container } from 'tsyringe';
 import DomainStorageImpl from '@/models/domain-storage-impl';

@@ -49,6 +49,8 @@ export default Vue.extend({
     },
 
     computedListeners(): Function | Function[] {
+      // Remove `input` listener from listeners
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { input, rest } = this.$listeners;
       return rest;
     },
