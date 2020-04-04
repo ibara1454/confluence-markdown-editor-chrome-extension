@@ -1,20 +1,42 @@
 <template>
-  <body id="tinymce"
-    data-id="wysiwygTextarea"
-    contenteditable="true"
-    class="mce-content-body aui-theme-default mceContentBody wiki-content fullsize notranslate page-edit"
-    style="padding-top: 108px;">
-    <pre>{{ computedText }}</pre>
-    <table class="wysiwyg-macro" data-macro-name="html" data-macro-schema-version="1" style="background-image: url(/plugins/servlet/confluence/placeholder/macro-heading?definition=e2h0bWx9&amp;locale=ja_JP&amp;version=2); background-repeat: no-repeat;" data-macro-body-type="PLAIN_TEXT" data-mce-selected="1">
-      <tbody>
-        <tr>
-          <td class="wysiwyg-macro-body">
-            <pre>{{ computedContent }}</pre>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </body>
+<!--
+    In general, you should not mount any component directly
+    on the body tag. We use body tag here because we need to
+    keep same tag structure as original confluence's.
+-->
+<body
+  id="tinymce"
+  data-id="wysiwygTextarea"
+  contenteditable="true"
+  :class="[
+    'mce-content-body',
+    'aui-theme-default',
+    'mceContentBody',
+    'wiki-content',
+    'fullsize',
+    'notranslate',
+    'page-edit'
+  ]"
+  style="padding-top: 108px;"
+>
+  <pre>{{ computedText }}</pre>
+  <table
+    class="wysiwyg-macro"
+    data-macro-name="html"
+    data-macro-schema-version="1"
+    style="background-image: url(/plugins/servlet/confluence/placeholder/macro-heading?definition=e2h0bWx9&amp;locale=ja_JP&amp;version=2); background-repeat: no-repeat;"
+    data-macro-body-type="PLAIN_TEXT"
+    data-mce-selected="1"
+  >
+    <tbody>
+      <tr>
+        <td class="wysiwyg-macro-body">
+          <pre>{{ computedContent }}</pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
 </template>
 
 <script lang="ts">
