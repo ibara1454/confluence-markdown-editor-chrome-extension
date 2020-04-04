@@ -20,7 +20,7 @@ export default Vue.extend({
 
   computed: {
     computedUrl(): string {
-      return getExternalUrl('app.css');
+      return getExternalUrl('plugin.css');
     },
 
     computedText: {
