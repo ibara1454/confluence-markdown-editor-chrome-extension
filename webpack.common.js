@@ -8,9 +8,9 @@ module.exports = {
   target: 'web',
 
   entry: {
-    index: './src/index.ts',
-    plugin: './src/plugin.ts',
-    background: './src/background.ts',
+    [config.module.browser_action]: './src/index.ts',
+    [config.module.plugin]: './src/plugin.ts',
+    [config.module.background]: './src/background.ts',
   },
 
   module: {
@@ -95,6 +95,7 @@ module.exports = {
   },
 
   output: {
-    path: path.resolve(__dirname, config.output),
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist'),
   },
 };
