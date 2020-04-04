@@ -11,6 +11,7 @@ import Vue from 'vue';
 import Context from '@/components/Context.vue';
 import MarkdownEditor from '@/components/MarkdownEditor.vue';
 import editorStore from '@/store/modules/editor';
+import config from 'config';
 import { getExternalUrl } from '@/utils';
 
 export default Vue.extend({
@@ -20,7 +21,9 @@ export default Vue.extend({
 
   computed: {
     computedUrl(): string {
-      return getExternalUrl('app.css');
+      // Resolve the related stylesheet of plugin
+      // TODO: remove the dependency to plugin from this component
+      return getExternalUrl(`${config.module.plugin}.css`);
     },
 
     computedText: {

@@ -2,6 +2,10 @@
  * The general config module.
  */
 module.exports = {
-  // Output directory for webpack
-  output: 'dist',
+  // Name of each entrypoint
+  module: {
+    background: 'background',
+    plugin: 'plugin',
+    browser_action: 'index',
+  },
 };
