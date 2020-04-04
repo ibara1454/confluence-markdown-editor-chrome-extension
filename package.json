@@ -46,6 +46,7 @@
     "cross-env": "^7.0.0",
     "crx": "^5.0.1",
     "css-loader": "^3.4.2",
+    "deepmerge": "^4.2.2",
     "eslint": "^6.0.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-import-resolver-webpack": "^0.12.1",
@@ -60,6 +61,7 @@
     "mocha-webpack": "^2.0.0-beta.0",
     "node-sass": "^4.13.1",
     "reflect-metadata": "^0.1.13",
+    "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
     "sinon": "^8.1.1",
     "ts-loader": "^6.2.1",
@@ -84,7 +86,9 @@
     "mini-css-extract-plugin": "^0.9.0",
     "tsyringe": "^4.1.0",
     "uuid": "^7.0.2",
+    "vee-validate": "^3.2.5",
     "vue": "^2.6.11",
+    "vuetify": "^2.2.19",
     "vuex": "^3.1.3"
   }
 }
