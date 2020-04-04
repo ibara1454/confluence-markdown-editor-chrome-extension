@@ -23,7 +23,7 @@
 
   "content_scripts": [
     {
-      "matches": ["https://CONFLUENCE_PAGE/*"],
+      "matches": ["http://*/*", "https://*/*"],
       "js": ["plugin.js"],
       "css": []
     }
