@@ -2,100 +2,20 @@
 import '@/inject';
 import Vue from 'vue';
 import store from '@/store';
-import Editor from '@/pages/Editor.vue';
-import TextField from '@/pages/TextField.vue';
-import editorStore from '@/store/modules/editor';
-
-// Id of iframe of Inner document
-const iframeId = 'wysiwygTextarea_ifr';
-
-function applyStyle(): void {
-  const style = document.createElement('style');
-  // Change the position of parent be difference from static, so that
-  // the child with style `position: absolute` could works fine.
-  style.innerText = `
-  #rte {
-    position: relative !important;
-  }
-  #confluence-markdown-editor {
-    position: absolute !important;
-    top: 80px !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: calc(100% - 90px) !important;
-    border: 0 !important;
-    margin: 0 !important;
-  }
-  #toolbar {
-    display: block !important;
-    height: 0 !important;
-    overflow-x: hidden !important;
-  }
-  `;
-  document.body.appendChild(style);
-}
-
-/**
- * Setup markdown editor.
- */
-function setupMarkdownEditor(): void {
-  // Find the iframe of editor
-  const rte = document.getElementById('rte');
-  if (rte) {
-    const editorWrapper = document.createElement('div');
-    rte.appendChild(editorWrapper);
-    const vue = new Vue({
-      store,
-      render: (h) => h(Editor),
-    });
-    vue.$mount(editorWrapper);
-  }
-}
-
-/**
- * Return the content of first element `<pre></pre>` of given document' body.
- * @param doc a Document.
- * @returns inner text of first element `<pre></pre>`.
- */
-function getTextFieldValue(doc: Document): string | undefined {
-  const child = doc.body?.firstElementChild;
-  if (child && child.tagName === 'PRE') {
-    return (child as HTMLElement).innerText;
-  }
-  return undefined;
-}
-
-function setupTextField(): void {
-  const iframe = document.getElementById(iframeId) as HTMLIFrameElement | null;
-  const innerDocument = iframe?.contentDocument;
-  if (innerDocument) {
-    const body = innerDocument.body;
-    const text = getTextFieldValue(innerDocument);
-    if (text) {
-      editorStore.SET_TEXT(text);
-    }
-
-    const vue = new Vue({
-      store,
-      render: (h) => h(TextField),
-    });
-    vue.$mount(body);
-  }
-}
+import App from './App.vue';
 
 /**
  * Setup application.
  */
 function setup(): void {
-  // TODO: enable markdown editor in a better way
   // TODO: (feat) auto enable markdown editor
-  const enabled = window.confirm('Enable markdown editor?');
-  if (enabled) {
-    setupTextField();
-    setupMarkdownEditor();
-    applyStyle();
-  }
+  const app = document.createElement('div');
+  document.body.appendChild(app);
+  const vue = new Vue({
+    store,
+    render: (h) => h(App),
+  });
+  vue.$mount(app);
 }
 
 /**
