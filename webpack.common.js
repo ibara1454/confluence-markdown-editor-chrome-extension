@@ -8,9 +8,9 @@ module.exports = {
   target: 'web',
 
   entry: {
-    [config.module.browser_action]: './src/index.ts',
-    [config.module.plugin]: './src/plugin.ts',
-    [config.module.background]: './src/background.ts',
+    [config.module.browser_action]: './src/entrypoints/browser_action/index.ts',
+    [config.module.plugin]: './src/entrypoints/plugin/index.ts',
+    [config.module.background]: './src/entrypoints/background/index.ts',
   },
 
   module: {

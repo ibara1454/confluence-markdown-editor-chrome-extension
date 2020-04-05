@@ -63,7 +63,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import DomainStore from '@/store/modules/domain';
-import Domain from './models/domain';
+import Domain from '@/models/domain';
 
 export default Vue.extend({
   name: 'App',

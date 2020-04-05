@@ -1,4 +1,4 @@
-const webpackConfig = require('../webpack.config.js');
+const webpackConfig = require('../webpack.dev.js');
 
 // Storybook 5.3 new configuration.
 // https://medium.com/storybookjs/storybook-5-3-83e114e8797c
