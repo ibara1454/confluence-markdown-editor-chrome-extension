@@ -1,6 +1,6 @@
 {
-  "name": "Confluence markdown editor chrome extension",
-  "description" : "Base Level Extension",
+  "name": "Confluence markdown editor",
+  "description" : "Markdown editor for Confluence",
   "version": "0.0.0",
   "manifest_version": 2,
   "icons": {
