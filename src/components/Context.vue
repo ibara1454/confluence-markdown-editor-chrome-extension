@@ -15,8 +15,15 @@ export default {
   name: 'Context',
 
   beforeUpdate() {
+    // FIXME: enable the updating of child components
+    //  Don't know why this method is called even if
+    //  virtual DOMs didn't requested for changes.
+    //  For performance, we disabled the updating.
+
     // freezing to prevent unnecessary Reactifiation of vNodes
-    this.iApp.children = Object.freeze(this.$slots.default);
+    // if (this.iApp) {
+    //   this.iApp.children = Object.freeze(this.$slots.default);
+    // }
   },
 
   methods: {
