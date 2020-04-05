@@ -17,7 +17,6 @@ function applyStyle(): void {
   #rte {
     position: relative !important;
   }
-
   #confluence-markdown-editor {
     position: absolute !important;
     top: 80px !important;
@@ -28,7 +27,6 @@ function applyStyle(): void {
     border: 0 !important;
     margin: 0 !important;
   }
-
   #toolbar {
     display: block !important;
     height: 0 !important;
