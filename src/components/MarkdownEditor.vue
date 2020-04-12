@@ -25,7 +25,6 @@ export default Vue.extend({
 
   props: {
     value: { type: String, required: false, default: '' },
-    highlight: { type: Boolean, required: false, default: true },
   },
 
   data() {
@@ -63,17 +62,14 @@ export default Vue.extend({
     }, 300),
   },
 
-  created(): void {
-    // Turn on highlight marker if highlight option is enabled
-    if (this.highlight) {
-      marked.setOptions({
-        highlight: (code, lang) => {
-          // Let `highlight` detech the language if no launguage is given
-          const result = lang !== '' ? hljs.highlightAuto(code, [lang]) : hljs.highlightAuto(code);
-          return result.value;
-        },
-      });
-    }
+  beforeCreate(): void {
+    marked.setOptions({
+      highlight: (code, lang) => {
+        // Let `highlight` detech the language if no launguage is given
+        const result = lang !== '' ? hljs.highlightAuto(code, [lang]) : hljs.highlightAuto(code);
+        return result.value;
+      },
+    });
   },
 });
 </script>
