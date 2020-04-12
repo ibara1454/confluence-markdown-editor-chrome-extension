@@ -13,13 +13,22 @@ const domainRepository = container.resolve(DomainRepository);
  */
 function setup(): void {
   // TODO: (feat) auto enable markdown editor
-  const app = document.createElement('div');
-  document.body.appendChild(app);
-  const vue = new Vue({
-    store,
-    render: (h) => h(App),
-  });
-  vue.$mount(app);
+  // Use the extension's id to avoid collisions
+  const id = chrome.runtime.id;
+  // Avoid double launch
+  if (document.getElementById(id) === null) {
+    const wrapper = document.createElement('div');
+    wrapper.id = id;
+    document.body.appendChild(wrapper);
+
+    const app = document.createElement('div');
+    wrapper.appendChild(app);
+    const vue = new Vue({
+      store,
+      render: (h) => h(App),
+    });
+    vue.$mount(app);
+  }
 }
 
 /**
