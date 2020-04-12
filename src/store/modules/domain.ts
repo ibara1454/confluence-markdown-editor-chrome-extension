@@ -97,8 +97,4 @@ class DomainModule extends VuexModule {
   }
 }
 
-const domainStore = getModule(DomainModule);
-
-export default domainStore;
-
-domainStore.init();
+export default getModule(DomainModule);
