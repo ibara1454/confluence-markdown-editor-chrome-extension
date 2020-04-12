@@ -42,8 +42,10 @@ async function isTargetPage(url: string): Promise<boolean> {
   return Object.values(domains)
     .map((x) => x.name)
     .map(escapeRegExp)
-    // The url pattern of editpage or createpage
-    .map((domain) => new RegExp(String.raw`http(s)://${domain}/(.*/)?(editpage|createpage).action`))
+    // The url pattern of
+    //  Confluence 6.15.x - editpage.action or createpage.action
+    //  Confluence 6.13.x - resumedraft.action
+    .map((domain) => new RegExp(String.raw`https?://${domain}/(.*/)?(editpage|createpage|resumedraft).action`))
     // Determine the given url whether it is "editpage" or "createpage"
     .some((regexp) => regexp.test(url));
 }
