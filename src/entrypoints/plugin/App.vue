@@ -38,32 +38,14 @@ function getTextFieldValue(doc: Document): string | undefined {
   return undefined;
 }
 
+/**
+ * Append an addition stylesheet to confluence page.
+ * Which is responsible to adjust the style of markdown editor
+ * and the whole confluence page.
+ */
 function applyStyle(): void {
   const style = document.createElement('style');
-  // Change the position of parent be difference from static, so that
-  // the child with style `position: absolute` could works fine.
-  style.innerText = `
-  #rte {
-    position: relative !important;
-  }
-
-  #confluence-markdown-editor {
-    position: absolute !important;
-    top: 80px !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: calc(100% - 80px) !important;
-    border: 0 !important;
-    margin: 0 !important;
-  }
-
-  #toolbar {
-    display: block !important;
-    height: 0 !important;
-    overflow-x: hidden !important;
-  }
-  `;
+  style.innerText = editorStore.GLOBAL_STYLE;
   document.body.appendChild(style);
 }
 
