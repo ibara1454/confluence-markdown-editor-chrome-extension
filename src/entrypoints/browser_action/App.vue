@@ -105,5 +105,9 @@ export default Vue.extend({
       DomainStore.remove(id);
     },
   },
+
+  beforeCreate() {
+    DomainStore.init();
+  },
 });
 </script>
