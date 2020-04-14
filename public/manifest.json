@@ -14,7 +14,9 @@
   },
 
   "permissions": [
-    "tabs", "webNavigation", "history", "storage"
+    "tabs",
+    "storage",
+    "<all_urls>"
   ],
 
   "background": {
@@ -23,7 +25,7 @@
 
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
+      "matches": ["<all_urls>"],
       "js": ["plugin.js"],
       "css": []
     }
