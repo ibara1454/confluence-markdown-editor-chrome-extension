@@ -45,24 +45,50 @@
 import Vue from 'vue';
 import editorStore from '@/store/modules/editor';
 
-const styleScript = `
+// TODO: refactor function
+function styleScript(rawStyle: string): string {
+  const quotedStyle = `\`${rawStyle}\``;
+  return `
 <${'script'}>
 const main = document.getElementById('main-content');
 const text = main.firstElementChild.innerText;
 const iframe = document.createElement('iframe');
 main.innerHTML = '';
 main.appendChild(iframe);
-const script = document.createElement('script');
-script.src = "https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js";
-document.body.appendChild(script);
-script.onload = () => {
+
+const markedLoaded = new Promise((resolve) => {
+  const script = document.createElement('script');
+  script.src = "https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js";
+  document.body.appendChild(script);
+  script.onload = resolve;
+});
+
+const hightlightLoaded = new Promise((resolve) => {
+  const script = document.createElement('script');
+  script.src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js";
+  document.body.appendChild(script);
+  script.onload = resolve;
+});
+
+Promise.all([markedLoaded, hightlightLoaded]).then(() => {
+  marked.setOptions({
+    highlight: (code, lang) => {
+      const result = lang !== '' ? hljs.highlightAuto(code, [lang]) : hljs.highlightAuto(code);
+      return result.value;
+    },
+  });
   iframe.contentDocument.body.innerHTML = marked(text);
   iframe.contentDocument.body.style = 'margin: 0; overflow-y: hidden;';
   iframe.style = 'width: 100%; border: 0;';
   iframe.style.height = iframe.contentDocument.body.offsetHeight + 'px';
-};
+  const style = iframe.contentDocument.createElement('style');
+  iframe.contentDocument.body.appendChild(style);
+  style.innerHTML = ${quotedStyle};
+});
+
 </${'script'}>
 `;
+}
 
 // TODO: set the height of component dynamically
 export default Vue.extend({
@@ -77,7 +103,11 @@ export default Vue.extend({
     },
 
     computedContent(): string {
-      return styleScript;
+      return styleScript(this.computedEditorStyle);
+    },
+
+    computedEditorStyle(): string {
+      return editorStore.EDITOR_STYLE;
     },
   },
 });
