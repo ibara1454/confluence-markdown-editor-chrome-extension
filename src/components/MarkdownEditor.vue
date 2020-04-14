@@ -75,9 +75,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-/* TODO: remove this temp css style */
-@import '~highlight.js/styles/github.css';
-
 /* TODO: remove min-height */
 .editor {
   display: flex;
