@@ -75,10 +75,8 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-/* TODO: remove min-height */
 .editor {
   display: flex;
-  min-height: 300px;
   overflow: hidden;
 }
 
