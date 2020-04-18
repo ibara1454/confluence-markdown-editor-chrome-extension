@@ -1,5 +1,6 @@
 <template>
   <v-textarea
+    spellcheck="false"
     v-model="computedValue"
     @keydown.native.prevent.exact.tab="indent"
     @keydown.native.prevent.exact.shift.tab="unIndent" />
