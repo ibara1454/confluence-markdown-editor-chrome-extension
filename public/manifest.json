@@ -1,7 +1,7 @@
 {
   "name": "Confluence markdown editor",
   "description" : "Markdown editor for Confluence",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "manifest_version": 2,
   "icons": {
     "32": "icons/icon_32.png",
