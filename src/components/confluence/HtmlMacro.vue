@@ -30,35 +30,39 @@ export default Vue.extend({
   name: 'HtmlMacro',
 
   data() {
+    // The raw text of default slot
     return { slot: '' };
   },
 
   methods: {
+    /**
+     * Render the given vnodes into strings instead of DOMs.
+     */
     renderString(vnodes: VNode[] | undefined): string {
+      // The easiest way to get the rendered vnodes is getting them from `vm.$el.innerHTML`
+      // You can do it by other ways
       const vm = new Vue({
-        render(h) {
-          return h('div', vnodes);
-        },
+        render: (h) => h('div', vnodes),
       });
-      //
+      // Render off-document
+      // See https://vuejs.org/v2/api/index.html#vm-mount
       vm.$mount();
-      // const s = new XMLSerializer();
-      // const str = Array.from(vm.$el.childNodes)
-      //   .map((node) => s.serializeToString(node))
-      //   .join('');
-      // console.log(str);
-      const str = vm.$el.innerHTML;
-      // https://developer.mozilla.org/ja/docs/Web/API/Node/textContent
-      return str;
+      // Get the raw DOM text rendered by vue
+      const rawDomText = vm.$el.innerHTML;
+      // Clean vm after used
+      vm.$destroy();
+      return rawDomText;
     },
   },
 
   created() {
+    // Get the raw text of default slot but not the DOM elements
     // eslint-disable-next-line dot-notation
     this.slot = this.renderString(this.$slots['default']);
   },
 
   beforeUpdate() {
+    // Get the raw text of default slot but not the DOM elements
     // eslint-disable-next-line dot-notation
     this.slot = this.renderString(this.$slots['default']);
   },
