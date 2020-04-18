@@ -22,42 +22,48 @@
   <pre>{{ computedText }}</pre>
   <!-- eslint-disable max-len -->
   <html-macro>
-    <v-script type="text/template">{{ computedEditorStyle }}</v-script>
+    <v-script type="text/template" id="confluence-markdown-editor-global-style">
+      {{ computedEditorStyle }}
+    </v-script>
     <v-script defer>
-      const main = document.getElementById('main-content');
-      const text = main.firstElementChild.innerText;
-      const iframe = document.createElement('iframe');
-      main.innerHTML = '';
-      main.appendChild(iframe);
+      (function() {
+        const main = document.getElementById('main-content');
+        const text = main.firstElementChild.innerText;
+        const style = main.querySelector('#confluence-markdown-editor-global-style').innerText;
+        const iframe = document.createElement('iframe');
+        main.innerHTML = ''; // Remove all content in main-content
+        main.appendChild(iframe);
 
-      const markedLoaded = new Promise((resolve) => {
-        const script = document.createElement('script');
-        script.src = "https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js";
-        document.body.appendChild(script);
-        script.onload = resolve;
-      });
-
-      const hightlightLoaded = new Promise((resolve) => {
-        const script = document.createElement('script');
-        script.src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js";
-        document.body.appendChild(script);
-        script.onload = resolve;
-      });
-
-      Promise.all([markedLoaded, hightlightLoaded]).then(() => {
-        marked.setOptions({
-          highlight: (code, lang) => {
-            const result = lang !== '' ? hljs.highlightAuto(code, [lang]) : hljs.highlightAuto(code);
-            return result.value;
-          },
+        const markedLoaded = new Promise((resolve) => {
+          const script = document.createElement('script');
+          script.src = "https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js";
+          document.body.appendChild(script);
+          script.onload = resolve;
         });
-        iframe.contentDocument.body.innerHTML = marked(text);
-        iframe.contentDocument.body.style = 'margin: 0; overflow-y: hidden;';
-        iframe.style = 'width: 100%; border: 0;';
-        iframe.style.height = iframe.contentDocument.body.offsetHeight + 'px';
-        const style = iframe.contentDocument.createElement('style');
-        iframe.contentDocument.body.appendChild(style);
-      });
+
+        const hightlightLoaded = new Promise((resolve) => {
+          const script = document.createElement('script');
+          script.src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js";
+          document.body.appendChild(script);
+          script.onload = resolve;
+        });
+
+        Promise.all([markedLoaded, hightlightLoaded]).then(() => {
+          marked.setOptions({
+            highlight: (code, lang) => {
+              const result = lang !== '' ? hljs.highlightAuto(code, [lang]) : hljs.highlightAuto(code);
+              return result.value;
+            },
+          });
+          iframe.contentDocument.body.innerHTML = marked(text);
+          iframe.contentDocument.body.style = 'margin: 0; overflow-y: hidden;';
+          iframe.style = 'width: 100%; border: 0;';
+          iframe.style.height = iframe.contentDocument.body.offsetHeight + 'px';
+          const styleTag = iframe.contentDocument.createElement('style');
+          styleTag.innerText = style;
+          iframe.contentDocument.body.appendChild(styleTag);
+        });
+      })();
     </v-script>
   </html-macro>
 </body>
