@@ -59,3 +59,11 @@ This extension is dependent on the "HTML Macro". If it is not enabled, please as
 ## Contributing
 
 Since his project is still in progress, it is not ready to accept any pull request or issues.
+
+## License
+
+[MIT](LICENSE)
+
+Copyright 2020 Chiajun Wang (ibara1454).
+
+This software includes the work that is distributed in the Apache License 2.0.
