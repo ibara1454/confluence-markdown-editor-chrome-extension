@@ -1,6 +1,12 @@
 <template>
   <div class="vuetify-app">
     <link type="text/css" rel="stylesheet" :href="computedUrl">
+    <!--
+      Append an addition stylesheet to confluence page.
+      Which is responsible to adjust the style of markdown editor
+      and the whole confluence page.
+    -->
+    <v-style v-if="launched">{{ computedGlobalStyle }}</v-style>
     <v-dialog class="dialog" v-model="dialog">
       <div class="card">
         <h1 class="dialog-title">Confirm</h1>
@@ -18,36 +24,20 @@
 import Vue from 'vue';
 import store from '@/store';
 import VButton from '@/basics/VButton.vue';
+import VStyle from '@/basics/VStyle.vue';
 import VDialog from '@/components/Dialog.vue';
 import Editor from '@/pages/Editor.vue';
 import TextField from '@/pages/TextField.vue';
 import editorStore from '@/store/modules/editor';
 import config from 'config';
 import { getExternalUrl } from '@/utils';
-
-/**
- * Return the content of first element `<pre></pre>` of given document' body.
- * @param doc a Document.
- * @returns inner text of first element `<pre></pre>`.
- */
-function getTextFieldValue(doc: Document): string | undefined {
-  const child = doc.body?.firstElementChild;
-  if (child && child.tagName === 'PRE') {
-    return (child as HTMLElement).innerText;
-  }
-  return undefined;
-}
+import { parseConfluencePage } from '@/models/confluence-page';
 
 /**
  * Append an addition stylesheet to confluence page.
  * Which is responsible to adjust the style of markdown editor
  * and the whole confluence page.
  */
-function applyStyle(): void {
-  const style = document.createElement('style');
-  style.innerText = editorStore.GLOBAL_STYLE;
-  document.body.appendChild(style);
-}
 
 function setupEditor(): void {
   const rte = document.getElementById('rte');
@@ -69,34 +59,38 @@ function setupTextField(): void {
   const iframe = document.getElementById(iframeId) as HTMLIFrameElement | null;
   const innerDocument = iframe?.contentDocument;
   if (innerDocument) {
-    const body = innerDocument.body;
-    const text = getTextFieldValue(innerDocument);
-    if (text) {
-      editorStore.SET_TEXT(text);
-    }
+    const page = parseConfluencePage(innerDocument);
 
     const vue = new Vue({
       store,
-      render: (h) => h(TextField),
+      render: (h) => h(TextField, {
+        props: {
+          text: page?.text || '',
+        },
+      }),
     });
-    vue.$mount(body);
+    // Replace the original body with component
+    vue.$mount(innerDocument.body);
   }
 }
 
 export default Vue.extend({
   name: 'App',
 
-  components: { VButton, VDialog },
+  components: { VButton, VStyle, VDialog },
 
   data() {
-    // Show dialog immediately
-    return { dialog: true };
+    return {
+      // Show dialog immediately
+      dialog: true,
+      launched: false,
+    };
   },
 
   methods: {
     clickOk(): void {
       this.dialog = false;
-      applyStyle();
+      this.launched = true;
       setupEditor();
       setupTextField();
     },
@@ -109,6 +103,10 @@ export default Vue.extend({
   computed: {
     computedUrl(): string {
       return getExternalUrl(`${config.module.plugin}.css`);
+    },
+
+    computedGlobalStyle(): string {
+      return editorStore.GLOBAL_STYLE;
     },
   },
 });
