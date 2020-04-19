@@ -9,6 +9,7 @@ describe('MarkdownEditor', () => {
   it('has a input panel', () => {
     const wrapper = shallowMount(MarkdownEditor, {
       localVue,
+      propsData: { value: '' },
     });
     expect(wrapper.contains('.input')).toBeTruthy();
   });
@@ -16,14 +17,15 @@ describe('MarkdownEditor', () => {
   it('has a preview panel', () => {
     const wrapper = shallowMount(MarkdownEditor, {
       localVue,
+      propsData: { value: '' },
     });
     expect(wrapper.contains('.preview')).toBeTruthy();
   });
 
   it('rendered with given markdown input `#`', () => {
     const wrapper = shallowMount(MarkdownEditor, {
-      propsData: { value: '# Dummy text' },
       localVue,
+      propsData: { value: '# Dummy text' },
     });
     expect(wrapper.vm.$data.dataMarkdown).toBe('<h1 id="dummy-text">Dummy text</h1>\n');
   });

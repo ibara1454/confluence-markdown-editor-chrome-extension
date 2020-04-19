@@ -91,8 +91,8 @@ export default Vue.extend({
     clickOk(): void {
       this.dialog = false;
       this.launched = true;
-      setupEditor();
       setupTextField();
+      setupEditor();
     },
 
     clickCancel(): void {
