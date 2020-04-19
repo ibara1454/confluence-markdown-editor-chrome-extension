@@ -24,7 +24,7 @@ export default Vue.extend({
   components: { TextEditor, HtmlPreview },
 
   props: {
-    value: { type: String, required: false, default: '' },
+    value: { type: String, required: true },
   },
 
   data() {
