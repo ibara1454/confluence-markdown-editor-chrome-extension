@@ -1,28 +1,38 @@
 # Confluence markdown editor chrome extension
 
+[![version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/ibara1454/confluence-markdown-editor-chrome-extension/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![GitHub Actions](https://github.com/ibara1454/confluence-markdown-editor-chrome-extension/workflows/build/badge.svg)](https://github.com/ibara1454/confluence-markdown-editor-chrome-extension/actions?query=workflow%3Abuild)
 
 A Chrome extension provides Markdown editor for Confluence.
 
-![Sample](./sample.gif)
+![Sample](docs/sample.gif)
 
 ## What's this
 
 This project is proposed to provide a markdown editor in Confluence.
 
-As known as Atlassian Confluence has many convenience macros and features in the WYSIWYG editor.
+As known as [Atlassian Confluence](https://www.atlassian.com/software/confluence) has many convenience macros and features in the WYSIWYG editor.
 But there is no way to use markdown like what you do in GitHub.
 
 By install this extension, you may open a markdown editor in your documents.
 
 ## Feature
 
-- Create / edit pages
-- User custom styles (TBD)
+Support on Confluence version >= 6.13.11.
+
+- Create / edit pages using markdown editor
+- User custom styles (WIP)
 
 ## Usage
 
-TBD.
+First, setup your Confluence's domain name to enable this extension in such domain. (i.e. `http://my.confluence.com`)
+
+![menu](docs/menu.png)
+
+Create a new document / edit exising documents.
+
+![create_edit](docs/create_edit.png)
 
 ## Installation
 
