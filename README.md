@@ -10,12 +10,12 @@ A Chrome extension provides Markdown editor for Confluence.
 
 ## What's this
 
-This project is proposed to provide a markdown editor in Confluence.
+Developer loves markdown.
 
-As known as [Atlassian Confluence](https://www.atlassian.com/software/confluence) has many convenience macros and features in the WYSIWYG editor.
-But there is no way to use markdown like what you do in GitHub.
+Even [Atlassian Confluence](https://www.atlassian.com/software/confluence) has many convenience macros and features in the WYSIWYG editor,
+there is no markdown editor feature in it.
 
-By install this extension, you may open a markdown editor in your documents.
+By install this extension, you will get a markdown editor.
 
 ## Feature
 
@@ -65,10 +65,6 @@ Load the extension from `chrome://extensions` page.
 
 Make sure your Confluence's ["HTML Macro" feature](https://confluence.atlassian.com/doc/html-macro-38273085.html) is enabled.
 This extension is dependent on the "HTML Macro". If it is not enabled, please ask your administrator to enable this macro.
-
-## Contributing
-
-Since his project is still in progress, it is not ready to accept any pull request or issues.
 
 ## License
 
