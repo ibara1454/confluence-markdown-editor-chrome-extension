@@ -19,19 +19,19 @@
   ]"
   style="padding-top: 108px;"
 >
-  <pre>{{ computedText }}</pre>
   <!-- eslint-disable max-len -->
   <html-macro>
-    <v-script type="text/template" id="confluence-markdown-editor-global-style">
+    <v-script type="text/template" id="confluence-markdown-editor-markdown-text">{{ computedText }}</v-script>
+    <v-script type="text/template" id="confluence-markdown-editor-markdown-style">
       {{ computedEditorStyle }}
     </v-script>
     <v-script defer>
       (function() {
         const main = document.getElementById('main-content');
-        const text = main.firstElementChild.innerText;
-        const style = main.querySelector('#confluence-markdown-editor-global-style').innerText;
+        const text = main.querySelector('#confluence-markdown-editor-markdown-text').textContent;
+        const style = main.querySelector('#confluence-markdown-editor-markdown-style').textContent;
         const iframe = document.createElement('iframe');
-        main.innerHTML = ''; // Remove all content in main-content
+        main.textContent = ''; // Remove all content in main-content
         main.appendChild(iframe);
 
         const markedLoaded = new Promise((resolve) => {
@@ -60,7 +60,7 @@
           iframe.style = 'width: 100%; border: 0;';
           iframe.style.height = iframe.contentDocument.body.offsetHeight + 'px';
           const styleTag = iframe.contentDocument.createElement('style');
-          styleTag.innerText = style;
+          styleTag.textContent = style;
           iframe.contentDocument.body.appendChild(styleTag);
         });
       })();
