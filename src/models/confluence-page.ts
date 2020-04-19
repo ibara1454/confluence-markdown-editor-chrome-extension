@@ -21,12 +21,20 @@ export default ConfluencePage;
  * @returns ConfluencePage or undefined if any error occured.
  */
 export function parseConfluencePage(doc: Document): ConfluencePage | undefined {
-  const child = doc.body?.firstElementChild;
-  if (child && child.tagName === 'PRE') {
-    const text = (child as HTMLElement).innerText;
+  // Get contents from Confluence's html-macro
+  const macro = doc.querySelector('.wysiwyg-macro-body > pre');
+
+  if (macro && macro.textContent) {
+    const domparser = new DOMParser();
+    // Parse the text in macro by DOMParser
+    const template = domparser.parseFromString(macro.textContent, 'text/html');
+
+    const textDom = template.querySelector('#confluence-markdown-editor-markdown-text');
+    const styleDom = template.querySelector('#confluence-markdown-editor-markdown-style');
+
     return {
-      text,
-      style: '',
+      text: textDom?.textContent || '',
+      style: styleDom?.textContent || '',
     };
   }
   return undefined;
