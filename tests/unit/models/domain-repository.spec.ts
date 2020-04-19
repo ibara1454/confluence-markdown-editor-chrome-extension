@@ -114,7 +114,7 @@ describe('DomainRepository', () => {
     it('returns all records', async () => {
       const domain1 = { name: 'domain1' };
       const domain2 = { name: 'domain2' };
-      const records = { id1: domain1, id2: domain2 }
+      const records = { id1: domain1, id2: domain2 };
       // Conditions
       mock.get.once().returns(Promise.resolve(records));
       mock.set.never();
