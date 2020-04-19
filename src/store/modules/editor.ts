@@ -130,8 +130,8 @@ const globalStyle = `
 }
 `;
 
-@Module({ dynamic: true, store, name: 'Editor' })
-class EditorModule extends VuexModule {
+@Module({ name: 'editor', store, dynamic: true })
+export class EditorModule extends VuexModule {
   private text = '';
 
   // Change the position of parent be difference from static, so that
@@ -158,4 +158,4 @@ class EditorModule extends VuexModule {
   }
 }
 
-export default getModule(EditorModule);
+export const EditorStore = getModule(EditorModule);

@@ -73,7 +73,7 @@
 import Vue from 'vue';
 import VScript from '@/basics/VScript.vue';
 import HtmlMacro from '@/components/confluence/HtmlMacro.vue';
-import editorStore from '@/store/modules/editor';
+import { EditorStore } from '@/store/modules/editor';
 
 // TODO: set the height of component dynamically
 export default Vue.extend({
@@ -87,20 +87,20 @@ export default Vue.extend({
 
   computed: {
     computedText: {
-      get(): string { return editorStore.TEXT; },
+      get(): string { return EditorStore.TEXT; },
       set(val: string): void {
-        editorStore.SET_TEXT(val);
+        EditorStore.SET_TEXT(val);
       },
     },
 
     computedEditorStyle(): string {
-      return editorStore.EDITOR_STYLE;
+      return EditorStore.EDITOR_STYLE;
     },
   },
 
   created() {
     // Initialize the text state
-    editorStore.SET_TEXT(this.text);
+    EditorStore.SET_TEXT(this.text);
   },
 });
 </script>

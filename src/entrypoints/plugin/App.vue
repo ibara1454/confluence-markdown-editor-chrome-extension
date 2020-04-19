@@ -28,7 +28,7 @@ import VStyle from '@/basics/VStyle.vue';
 import VDialog from '@/components/Dialog.vue';
 import Editor from '@/pages/Editor.vue';
 import TextField from '@/pages/TextField.vue';
-import editorStore from '@/store/modules/editor';
+import { EditorStore } from '@/store/modules/editor';
 import config from 'config';
 import { getExternalUrl } from '@/utils';
 import { parseConfluencePage } from '@/models/confluence-page';
@@ -106,7 +106,7 @@ export default Vue.extend({
     },
 
     computedGlobalStyle(): string {
-      return editorStore.GLOBAL_STYLE;
+      return EditorStore.GLOBAL_STYLE;
     },
   },
 });
