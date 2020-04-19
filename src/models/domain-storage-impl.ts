@@ -53,7 +53,7 @@ export default class DomainStorageImpl implements DomainStorage {
    */
   async ['get'](): Promise<{ [key: string]: Domain }> {
     const resMap = await this.syncGet(this.domainKey);
-    return resMap[this.domainKey];
+    return resMap[this.domainKey] || {};
   }
 
   /**
