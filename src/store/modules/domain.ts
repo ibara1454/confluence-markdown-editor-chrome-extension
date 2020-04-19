@@ -7,7 +7,7 @@ import Domain from '@/models/domain';
 import { container } from 'tsyringe';
 
 @Module({ name: 'domain', store, dynamic: true })
-class DomainModule extends VuexModule {
+export class DomainModule extends VuexModule {
   // FIXME: inject components via constructor
   //  Since we are using the 'vuex-module-decorators', which does not allow
   //  us construct modules via constructors.
@@ -81,13 +81,14 @@ class DomainModule extends VuexModule {
    */
   @Action({ commit: 'reset' })
   public async fetch(): Promise<{ [id: string]: Domain }> {
-    return this.domainRepository.findAll();
+    const domains = this.domainRepository.findAll();
+    return domains;
   }
 
   /**
    * Initialize this module if it did not.
    */
-  @Action
+  @Action({ rawError: true })
   public async init(): Promise<void> {
     if (!this.INITIALIZED) {
       await this.fetch();
@@ -97,4 +98,4 @@ class DomainModule extends VuexModule {
   }
 }
 
-export default getModule(DomainModule);
+export const DomainStore = getModule(DomainModule);

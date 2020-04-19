@@ -12,7 +12,7 @@ import Vue from 'vue';
 import VStyle from '@/basics/VStyle.vue';
 import Context from '@/components/Context.vue';
 import MarkdownEditor from '@/components/MarkdownEditor.vue';
-import editorStore from '@/store/modules/editor';
+import { EditorStore } from '@/store/modules/editor';
 import config from 'config';
 import { getExternalUrl } from '@/utils';
 
@@ -29,14 +29,14 @@ export default Vue.extend({
     },
 
     computedEditorStyle(): string {
-      return editorStore.EDITOR_STYLE;
+      return EditorStore.EDITOR_STYLE;
     },
 
     computedText: {
-      get(): string { return editorStore.TEXT; },
+      get(): string { return EditorStore.TEXT; },
 
       set(value: string): void {
-        editorStore.SET_TEXT(value);
+        EditorStore.SET_TEXT(value);
       },
     },
   },
