@@ -82,7 +82,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.escape": "^4.0.1",
     "lodash.upperfirst": "^4.3.1",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "mini-css-extract-plugin": "^0.9.0",
     "tsyringe": "^4.1.0",
     "uuid": "^7.0.2",
